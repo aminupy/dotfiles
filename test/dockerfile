@@ -1,0 +1,17 @@
+# Dockerfile.test
+FROM ubuntu:26.04
+
+# Prevent interactive prompts during apt install
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install sudo and create a test user (mimics your real setup)
+RUN apt-get update && \
+    apt-get install -y sudo && \
+    useradd -m -s /bin/bash testuser && \
+    echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER testuser
+WORKDIR /home/testuser
+
+# Your dotfiles will be mounted here
+CMD ["/bin/bash"]

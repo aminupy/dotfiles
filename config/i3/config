@@ -1,0 +1,159 @@
+# ~/.config/i3/config
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always --no-startup-id xset r rate 220 40
+
+exec --no-startup-id dunst
+
+exec --no-startup-id sh -lc 'xfce4-clipman --daemon >>"$HOME/.cache/clipman.log" 2>&1'
+
+# Faster focus, less accidental focus changes
+focus_follows_mouse no
+mouse_warping none
+
+# Avoid weird window borders
+hide_edge_borders smart
+
+# Use a faster workspace switching model for multi-monitor
+workspace_auto_back_and_forth yes
+
+set $mod Mod4
+
+# Apps (match your sway choices as much as possible)
+set $term alacritty
+set $menu rofi -show drun -show-icons
+#set $menu exec rofi -modi drun -show drun -line-padding 4 -columns 2 -padding 50 -hide-scrollbar -show-icons -drun-icon-theme "Arc-X-D"
+# Basic
+font pango:monospace 10
+floating_modifier $mod
+
+exec --no-startup-id xrandr --output eDP-1 --off
+bindsym $mod+F8 exec --no-startup-id xrandr --output eDP-1 --auto
+
+bindsym $mod+F1 exec --no-startup-id sh -c 'maim -s | xclip -selection clipboard -t image/png'
+
+
+# Start terminal / launcher
+bindsym $mod+Return exec --no-startup-id $term
+bindsym $mod+d exec --no-startup-id $menu
+bindsym $mod+backslash exec wezterm start -- yazi
+bindsym $mod+g exec --no-startup-id google-chrome-stable --profile-directory="Default"
+# Kill / reload / restart / exit
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# Workspaces 1-10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Focus (vim keys like your sway)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move windows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Layout (similar to sway)
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Tab focus mode_toggle
+bindsym $mod+a focus parent
+
+# Resize mode (same behavior)
+mode "resize" {
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# No title bars (closest equivalent to your sway "border none")
+default_border pixel 0
+default_floating_border pixel 0
+
+# Clipboard helper (optional)
+# bindsym Print exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
+
+# Brightness keys (needs brightnessctl installed)
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 2%-
+bindsym XF86MonBrightnessUp   exec --no-startup-id brightnessctl s 2%+
+
+# Audio keys (pipewire)
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%+
+
+# Wallpaper (X11)
+exec_always --no-startup-id feh --bg-fill ~/Pictures/1.jpg
+
+# Simple power menu (your F12 mode)
+set $wmexit i3-msg exit
+set $lock i3lock -c 000000
+mode "System (l)lock, (e)exit, (s)suspend, (r)reboot, (space)poweroff" {
+    bindsym e exec --no-startup-id $wmexit, mode "default"
+    bindsym l exec --no-startup-id $lock, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym space exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+F12 mode "System (l)lock, (e)exit, (s)suspend, (r)reboot, (space)poweroff"
+
+# Status bar (basic i3bar + i3status)
+bar {
+    # Ensure you have a Nerd Font installed for the icons to work!
+    font pango:JetBrainsMono Nerd Font 10
+    
+    status_command ~/.cargo/bin/i3status-rs ~/.config/i3status-rust/config.toml
+}
+
+bindsym $mod+F11 exec scrot -s - | xclip -selection clipboard -t image/png
+
+exec --no-startup-id nm-applet
+exec_always --no-startup-id setxkbmap -layout us,ir -option grp:alt_shift_toggle

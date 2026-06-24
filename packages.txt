@@ -1,0 +1,134 @@
+# packages.txt — cleaned user-installed packages for Debian/Ubuntu
+# Generated: 2025-06-24
+# OS: Ubuntu 24.04.4 LTS (Noble Numbat)
+
+# Window Manager & Compositor
+i3-wm
+i3blocks
+i3lock
+i3status
+picom
+arandr
+autorandr
+feh
+maim
+xclip
+xdotool
+xsel
+xinit
+suckless-tools
+
+# Terminal Emulators
+kitty
+alacritty
+
+# Application Launcher
+rofi
+
+# Shell & Utilities
+zsh
+zsh-autosuggestions
+zsh-syntax-highlighting
+zoxide
+fzf
+fd-find
+ripgrep
+bat
+lsd
+jq
+htop
+ncdu
+tree
+aria2
+wget
+curl
+ca-certificates
+gnupg
+unzip
+unrar
+imagemagick
+
+# Development Tools
+git
+build-essential
+cmake
+pkg-config
+g++
+python3
+python3-pip
+libfontconfig1-dev
+libfreetype-dev
+libxcb-xfixes0-dev
+libxkbcommon-dev
+
+# Editors
+vim
+
+# Web Browsers
+firefox
+google-chrome-stable
+
+# Media & Graphics
+ffmpeg
+mpv
+flameshot
+
+# Docker
+docker-ce
+docker-ce-cli
+containerd.io
+docker-buildx-plugin
+docker-compose-plugin
+
+# Networking
+network-manager
+network-manager-gnome
+network-manager-l2tp
+network-manager-l2tp-gnome
+nm-tray
+wireguard
+smbclient
+
+# Bluetooth
+blueman
+bluez
+bluez-tools
+
+# Audio
+pipewire
+pipewire-alsa
+pipewire-audio
+pipewire-pulse
+wireplumber
+pavucontrol
+alsa-utils
+playerctl
+
+# Notifications
+dunst
+libnotify-bin
+
+# Fonts
+fonts-liberation
+fonts-noto-cjk
+fonts-noto-color-emoji
+fonts-noto-core
+fonts-ubuntu
+fonts-vazirmatn
+fontconfig
+
+# Themes
+dmz-cursor-theme
+
+# Printing
+cups
+cups-filters
+
+# System Tools
+brightnessctl
+tlp
+tlp-rdw
+flatpak
+software-properties-common
+gnome-keyring
+xfce4-clipman

@@ -1,0 +1,11 @@
+[user]
+	email = me@aminupy.com
+	name = MohammadAmin
+
+[includeIf "gitdir:~/Projects/turnus/"]
+    path = ~/Projects/turnus/.gitconfig
+
+[includeIf "gitdir:~/Projects/tangible/"]
+    path = ~/Projects/tangible/.gitconfig
+[init]
+	defaultBranch = main
